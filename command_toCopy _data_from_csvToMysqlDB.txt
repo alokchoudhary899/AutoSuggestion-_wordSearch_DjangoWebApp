@@ -1,0 +1,1 @@
+load data local infile '//home/my-sys/my-excel.csv' into table my_tables fields terminated by ',' enclosed by '"' (words, Use_count);

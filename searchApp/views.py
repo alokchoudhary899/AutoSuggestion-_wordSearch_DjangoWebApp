@@ -13,8 +13,7 @@ class IndexView(LoginRequiredMixin,TemplateView):
 def wordAutocomplete(request):
     if request.is_ajax():
         q = request.GET.get('term', '').capitalize()
-        search_qs = SearchElements.objects.values().order_by('-Use_count', 'words').order_by(
-            Length('words').asc()).filter(words__icontains=q)[:24]
+        search_qs = SearchElements.objects.values().order_by(Length('words').asc(),'-Use_count').filter(words__icontains=q)[:24]
         results = []
         print(q)
         for r in search_qs:
@@ -22,8 +21,7 @@ def wordAutocomplete(request):
         data = json.dumps(results)
     else:
         q = request.POST.get('txtSearch')
-        search_qs = SearchElements.objects.values().order_by('-Use_count', 'words').order_by(
-            Length('words').asc()).filter(words__icontains=q)[:24]
+        search_qs = SearchElements.objects.values().order_by(Length('words').asc(),'-Use_count').filter(words__icontains=q)[:24]
         results = []
         print(q)
         for r in search_qs:
